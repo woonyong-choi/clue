@@ -23,6 +23,7 @@
 | [11. 기존 k8s-ops 이전](11-current-k8s-ops-migration.md) | 보존할 계약, 버릴 복잡성, 수직 이전 전략 |
 | [12. Java와 Python 상세 비교](12-java-vs-python.md) | 접근 제어, interface, 타입, 동시성, 배포와 Kyro 적용 비교 |
 | [13. Python 선행·Java 포팅 계획](13-python-first-java-port-plan.md) | k8s-ops 정리 완료 조건과 Java 단계별 인수 계획 |
+| [14. Python 상세 정리·Java 인수 연결](14-python-refactor-handoff-map.md) | k8s-ops 작업 ID별 산출물과 Java module 시작·종료 조건 |
 
 ## 확정한 명칭
 

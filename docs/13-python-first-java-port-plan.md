@@ -1,5 +1,7 @@
 # Python 선행 정리와 Java 포팅 계획
 
+코드 감사에 따른 세부 작업 ID와 Java module별 인수 관계는 [Python 상세 정리·Java 인수 연결](./14-python-refactor-handoff-map.md)을 기준으로 한다.
+
 ## 결정
 
 - `k8s-ops`를 먼저 정리한다.
