@@ -4,13 +4,13 @@
 
 ```mermaid
 flowchart LR
-  User["Developer / Operator"] --> CLI["Kyro CLI"]
+  User["Developer / Operator"] --> CLI["Clue CLI"]
   CLI -->|"one-shot read"| K8s["Kubernetes API"]
-  CLI -->|"install / query"| Hub["Kyro Hub"]
-  Agent["Kyro Agent"] -->|"outbound HTTPS"| Hub
+  CLI -->|"install / query"| Hub["Clue Hub"]
+  Agent["Clue Agent"] -->|"outbound HTTPS"| Hub
   Agent -->|"read-only"| K8s
-  Hub --> Store["PostgreSQL / Kyro Store"]
-  Console["Kyro Console"] --> Hub
+  Hub --> Store["PostgreSQL / Clue Store"]
+  Console["Clue Console"] --> Hub
   Hub --> SCM["Git provider"]
   Prom["Prometheus (optional)"] -.-> Hub
   LocalAI["Local or remote AI (optional)"] -.-> CLI
@@ -19,7 +19,7 @@ flowchart LR
 
 ## 구성요소의 책임
 
-### Kyro CLI
+### Clue CLI
 
 - Homebrew와 GitHub Release로 배포하는 단일 실행 파일
 - kubeconfig를 이용한 일회성 진단
@@ -30,7 +30,7 @@ flowchart LR
 
 CLI는 Java와 Picocli로 작성하고 GraalVM Native Image로 빌드해 사용자의 JVM 설치를 요구하지 않는 방향을 목표로 한다.
 
-### Kyro Hub
+### Clue Hub
 
 - Agent 등록과 인증
 - Evidence ingestion과 Incident lifecycle
@@ -42,7 +42,7 @@ CLI는 Java와 Picocli로 작성하고 GraalVM Native Image로 빌드해 사용�
 
 첫 버전은 하나의 배포 가능한 모듈러 모놀리스로 만든다. 논리적 모듈은 분리하지만 독립 프로세스 15개로 시작하지 않는다. 확장이 입증된 경계만 나중에 worker로 분리한다.
 
-### Kyro Agent
+### Clue Agent
 
 - 클러스터 안에서 하나의 작은 Deployment로 실행
 - Kubernetes API read-only watch/list/get
@@ -53,7 +53,7 @@ CLI는 Java와 Picocli로 작성하고 GraalVM Native Image로 빌드해 사용�
 
 Agent는 한 시점에 하나의 Hub identity에 소속된다. Hub endpoint만 바꾸는 것으로 소유권이 바뀌지 않으며, 재연결에는 명시적인 rotate/adopt 절차가 필요하다.
 
-### Kyro Console
+### Clue Console
 
 - Incident 목록과 상세 Evidence
 - 원인과 Rule ID
@@ -64,37 +64,37 @@ Agent는 한 시점에 하나의 Hub identity에 소속된다. Hub endpoint만 �
 
 초기 UI는 Incident 중심으로 유지하고 범용 Kubernetes Dashboard를 만들지 않는다.
 
-### Kyro Store
+### Clue Store
 
 - 구현은 PostgreSQL
 - Incident, Evidence metadata, rule version, remediation, audit, membership 저장
 - 내장 PostgreSQL과 외부 PostgreSQL을 같은 schema로 지원
 - migration은 Flyway가 소유
 
-`내장 PostgreSQL`은 프로세스 내부 라이브러리가 아니다. Helm이 Kyro와 함께 별도 PostgreSQL Pod/StatefulSet을 설치하는 편의 모드다.
+`내장 PostgreSQL`은 프로세스 내부 라이브러리가 아니다. Helm이 Clue와 함께 별도 PostgreSQL Pod/StatefulSet을 설치하는 편의 모드다.
 
 ## Java 모듈 경계
 
 ```text
-kyro/
-├── kyro-cli
-├── kyro-hub
-├── kyro-agent
-├── kyro-domain
-├── kyro-analyzer-api
-├── kyro-kubernetes
-├── kyro-persistence-postgres
-├── kyro-scm-github
-├── kyro-ai-adapters
-├── kyro-protocol
-├── kyro-console
+clue/
+├── clue-cli
+├── clue-hub
+├── clue-agent
+├── clue-domain
+├── clue-analyzer-api
+├── clue-kubernetes
+├── clue-persistence-postgres
+├── clue-scm-github
+├── clue-ai-adapters
+├── clue-protocol
+├── clue-console
 ├── deploy
 └── docs
 ```
 
-- `kyro-domain`: framework와 DB에 의존하지 않는 Incident·Evidence·Remediation 모델
-- `kyro-analyzer-api`: 외부 Rule Pack이 의존할 안정적인 SPI
-- `kyro-protocol`: CLI/Agent/Hub 간 versioned DTO와 API 계약
+- `clue-domain`: framework와 DB에 의존하지 않는 Incident·Evidence·Remediation 모델
+- `clue-analyzer-api`: 외부 Rule Pack이 의존할 안정적인 SPI
+- `clue-protocol`: CLI/Agent/Hub 간 versioned DTO와 API 계약
 - adapter 모듈이 domain이 정의한 port를 구현하는 hexagonal architecture를 사용
 - Java interface는 교체 가능한 경계에서만 만들고 모든 클래스에 기계적으로 추가하지 않음
 - ArchUnit으로 module dependency 규칙을 테스트

@@ -1,10 +1,10 @@
-# 기존 k8s-ops 이전
+# 기존 k8s-clue-python-reference 이전
 
 이 문서는 이전 원칙을 설명한다. 실제 실행 순서, Python Handoff Gate와 Java 단계 ID는 [Python 선행·Java 포팅 계획](13-python-first-java-port-plan.md)을 기준으로 한다.
 
 ## 현재 검증된 자산
 
-기존 `k8s-ops`는 Python 3.13, PostgreSQL/Alembic, NATS, Kubernetes/Helm과 TypeScript frontend로 작성된 학습 프로젝트다.
+기존 `k8s-clue-python-reference`는 Python 3.13, PostgreSQL/Alembic, NATS, Kubernetes/Helm과 TypeScript frontend로 작성된 학습 프로젝트다.
 
 확인된 대표 자산:
 
@@ -44,7 +44,7 @@
 ```text
 ImagePullBackOff fixture
 → Java Evidence normalizer
-→ KYRO-IMAGE-001 Analyzer
+→ CLUE-IMAGE-001 Analyzer
 → Finding renderer
 → Remediation Plan
 → Recovery Check fixture
@@ -77,7 +77,7 @@ fixture에는 실제 Secret, 내부 registry와 사용자 정보가 없어야 �
 
 ### 2. Python 저장소 정리 완료와 Handoff Pack
 
-- 설치 없는 `kyro diagnose` vertical slice
+- 설치 없는 `clue diagnose` vertical slice
 - 불필요한 frontend, gateway, worker/event runtime과 DB 계층 제거
 - versioned schema, golden fixture와 expected result 생성
 - read-only RBAC와 안전한 수정 계약 고정
@@ -109,8 +109,8 @@ fixture에는 실제 Secret, 내부 registry와 사용자 정보가 없어야 �
 
 ## 저장소 관계
 
-- `k8s-ops`는 학습 기록과 기존 설계의 근거로 유지한다.
-- `Kyro`는 새 제품 구현과 문서의 기준 저장소가 된다.
+- `k8s-clue-python-reference`는 학습 기록과 기존 설계의 근거로 유지한다.
+- `Clue`는 새 제품 구현과 문서의 기준 저장소가 된다.
 - 기존 저장소의 commit history를 새 저장소에 억지로 섞지 않는다.
 - 가져온 코드가 있다면 원래 라이선스와 NOTICE를 유지한다.
-- 기능 parity가 확인되기 전 `k8s-ops`를 삭제하거나 archive하지 않는다.
+- 기능 parity가 확인되기 전 `k8s-clue-python-reference`를 삭제하거나 archive하지 않는다.

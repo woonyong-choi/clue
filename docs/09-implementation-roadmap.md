@@ -7,14 +7,14 @@
 범위:
 
 ```text
-k8s-ops P0-P6
+k8s-clue-python-reference P0-P6
 Python Handoff Gate
 python-handoff-v1
 ```
 
 완료 조건:
 
-- [ ] 설치 없는 `kyro diagnose`
+- [ ] 설치 없는 `clue diagnose`
 - [ ] P0 Analyzer fixture
 - [ ] versioned JSON Schema
 - [ ] canonical expected result
@@ -52,7 +52,7 @@ release:
 v0.1.0
 ```
 
-## R2. 설치형 Kyro
+## R2. 설치형 Clue
 
 범위:
 
@@ -79,7 +79,7 @@ release:
 v0.2.0
 ```
 
-## R3. 멀티클러스터 Kyro
+## R3. 멀티클러스터 Clue
 
 범위:
 

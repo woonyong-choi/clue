@@ -2,7 +2,7 @@
 
 ## AI의 위치
 
-Kyro의 핵심 진단은 AI 없이 동작한다.
+Clue의 핵심 진단은 AI 없이 동작한다.
 
 ```text
 Kubernetes Evidence
@@ -43,22 +43,22 @@ AI가 기본적으로 하지 않는 기능:
 
 ## Claude Code와 Codex CLI 활용
 
-로컬에 로그인된 Claude Code나 Codex CLI를 Kyro가 하위 프로세스로 호출하는 방식은 가능하다. 다만 안정된 public API가 아닌 CLI 출력에 의존하면 버전 변경, interactive prompt, 권한 승인과 인증 상태 때문에 쉽게 깨질 수 있다.
+로컬에 로그인된 Claude Code나 Codex CLI를 Clue가 하위 프로세스로 호출하는 방식은 가능하다. 다만 안정된 public API가 아닌 CLI 출력에 의존하면 버전 변경, interactive prompt, 권한 승인과 인증 상태 때문에 쉽게 깨질 수 있다.
 
 따라서 다음 두 방식을 구분한다.
 
 ### MCP 방식 - 권장
 
-Kyro가 MCP server를 제공하고 Claude Code나 Codex가 Kyro의 Evidence 조회 도구를 호출한다.
+Clue가 MCP server를 제공하고 Claude Code나 Codex가 Clue의 Evidence 조회 도구를 호출한다.
 
 - 사용자가 이미 선택한 AI 도구 안에서 질문
-- Kyro는 구조화된 Evidence만 제공
+- Clue는 구조화된 Evidence만 제공
 - 수정 도구는 read-only와 approval-required로 구분
-- AI 제품의 로그인과 세션 수명주기를 Kyro가 소유하지 않음
+- AI 제품의 로그인과 세션 수명주기를 Clue가 소유하지 않음
 
 ### External command provider - 실험 기능
 
-Kyro가 허용된 로컬 CLI를 JSON stdin/stdout wrapper로 호출한다.
+Clue가 허용된 로컬 CLI를 JSON stdin/stdout wrapper로 호출한다.
 
 - 최초 1회 설치된 provider를 보여주고 사용자가 선택
 - 선택을 profile에 저장
@@ -89,7 +89,7 @@ Secret 값은 가명화 대상이 아니라 애초에 수집하지 않는다.
 ## 전송 전 확인
 
 ```bash
-kyro ai explain INCIDENT_ID --preview-payload
+clue ai explain INCIDENT_ID --preview-payload
 ```
 
 사용자는 provider, 전송 대상 endpoint, payload 크기, 제거·치환된 필드를 확인할 수 있어야 한다. 외부 전송 기록에는 payload hash, provider, model, policy version과 사용자의 승인만 남기며 Secret 원문은 남기지 않는다.

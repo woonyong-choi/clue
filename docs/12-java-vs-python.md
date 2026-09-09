@@ -104,7 +104,7 @@ public interface Analyzer {
 public final class ImagePullAnalyzer implements Analyzer {
     @Override
     public AnalyzerId id() {
-        return new AnalyzerId("KYRO-IMAGE-001");
+        return new AnalyzerId("CLUE-IMAGE-001");
     }
 
     @Override
@@ -137,7 +137,7 @@ Incident loadIncident(IncidentId incidentId) { ... }
 loadIncident(123); // compile error
 ```
 
-Kyro에서는 `ClusterId`, `ResourceUid`, `IncidentId`, `RuleId`를 서로 바꿔 쓰면 안 된다. Java의 작은 value type을 사용하면 같은 문자열이라는 이유로 잘못 섞이는 실수를 컴파일 시점에 막을 수 있다.
+Clue에서는 `ClusterId`, `ResourceUid`, `IncidentId`, `RuleId`를 서로 바꿔 쓰면 안 된다. Java의 작은 value type을 사용하면 같은 문자열이라는 이유로 잘못 섞이는 실수를 컴파일 시점에 막을 수 있다.
 
 ```java
 public record ClusterId(String value) {}
@@ -182,7 +182,7 @@ record는 field, constructor, accessor, equality와 hash code를 제공한다. c
 
 ## 5. 허용된 상태 표현
 
-Kyro의 Finding은 확정된 규칙 판단과 AI 가설을 구분해야 한다.
+Clue의 Finding은 확정된 규칙 판단과 AI 가설을 구분해야 한다.
 
 ### Python
 
@@ -211,7 +211,7 @@ sealed interface를 사용하면 허용된 구현을 제한할 수 있다. 새�
 | method dispatch | runtime에 유연 | compile-time 계약이 강함 |
 | meta programming | decorator, metaclass가 강력 | annotation과 processor 중심 |
 
-Kyro에는 깊은 class hierarchy보다 composition이 적합하다.
+Clue에는 깊은 class hierarchy보다 composition이 적합하다.
 
 ```text
 EvidenceCollector + Normalizer + Analyzer + Renderer
@@ -231,7 +231,7 @@ Java로 옮긴다고 모든 개념을 abstract class와 factory로 만들 필요
 
 - checked exception과 unchecked exception이 모두 존재
 - 모든 오류를 checked exception으로 만들면 코드가 무거워질 수 있음
-- Kyro domain에서는 exception 남용보다 명시적인 result type이 적합
+- Clue domain에서는 exception 남용보다 명시적인 result type이 적합
 
 ```java
 public sealed interface DiagnosisResult
@@ -256,7 +256,7 @@ public sealed interface DiagnosisResult
 - CPU-bound Analyzer도 thread pool로 명시적으로 제한 가능
 - JVM의 JIT는 오래 실행되는 Hub에서 높은 처리 성능을 낼 수 있음
 
-Kyro Hub와 Agent처럼 오래 실행되며 다수 cluster 연결을 처리하는 프로세스에는 Java의 동시성 모델이 잘 맞는다.
+Clue Hub와 Agent처럼 오래 실행되며 다수 cluster 연결을 처리하는 프로세스에는 Java의 동시성 모델이 잘 맞는다.
 
 ## 9. 실행 성능과 메모리
 
@@ -292,13 +292,13 @@ Agent: JAR/container 또는 native image
 CLI: GraalVM native executable
 ```
 
-Homebrew는 release archive의 `kyro` 바이너리와 SHA-256만 설치하면 된다. 사용자의 컴퓨터에 Java를 요구하지 않을 수 있다.
+Homebrew는 release archive의 `clue` 바이너리와 SHA-256만 설치하면 된다. 사용자의 컴퓨터에 Java를 요구하지 않을 수 있다.
 
 ## 11. 프레임워크와 의존성
 
 Python의 FastAPI, SQLAlchemy와 Pydantic은 빠른 API 개발에 강하다. Java의 Spring Boot, Quarkus, jOOQ, Flyway와 Testcontainers는 명시적인 장기 운영 구조에 강하다.
 
-Kyro에서는 다음 선택이 적합하다.
+Clue에서는 다음 선택이 적합하다.
 
 - domain: framework 없는 Java
 - CLI: Picocli
@@ -326,15 +326,15 @@ JPA entity를 domain model로 그대로 사용하지 않는다. DB lifecycle과 
 - compile-time refactoring 안정성이 중요
 - 개발자가 Java/C#/C++의 명시적 모델에 더 생산적
 
-Kyro는 두 번째 조건에 더 가깝다.
+Clue는 두 번째 조건에 더 가깝다.
 
-## 13. Kyro 구성요소별 판단
+## 13. Clue 구성요소별 판단
 
 | 구성요소 | Python | Java 판단 |
 |---|---|---|
-| `kyro diagnose` CLI | 빠르게 만들 수 있지만 standalone packaging 필요 | Picocli + Native Image가 성공하면 적합 |
-| Kyro Agent | 구현은 쉬우나 async/watch 구조와 packaging 관리 필요 | 장기 연결과 타입 계약에 유리, memory 측정 필요 |
-| Kyro Hub | FastAPI로 빠른 개발 가능 | domain, 권한, lifecycle이 커질수록 Java가 유리 |
+| `clue diagnose` CLI | 빠르게 만들 수 있지만 standalone packaging 필요 | Picocli + Native Image가 성공하면 적합 |
+| Clue Agent | 구현은 쉬우나 async/watch 구조와 packaging 관리 필요 | 장기 연결과 타입 계약에 유리, memory 측정 필요 |
+| Clue Hub | FastAPI로 빠른 개발 가능 | domain, 권한, lifecycle이 커질수록 Java가 유리 |
 | Analyzer SDK | Protocol/ABC로 가능 | compile-time interface와 artifact versioning이 유리 |
 | AI adapter | Python 생태계가 우세 | HTTP/MCP adapter 중심이면 Java로 충분 |
 | React Console | 언어 선택과 무관 | TypeScript 유지 |
@@ -350,16 +350,16 @@ Kyro는 두 번째 조건에 더 가깝다.
 - C#·C++식 명시성을 사용할 때 사고가 더 편함
 - 앞으로 Rule Pack SDK와 여러 모듈을 운영할 계획임
 
-이 조건들은 Kyro에 실제로 해당한다. 따라서 Java 선택은 단순 취향이 아니라 제품의 안전 계약과 개발자의 지속 가능한 생산성에 맞는 결정이다.
+이 조건들은 Clue에 실제로 해당한다. 따라서 Java 선택은 단순 취향이 아니라 제품의 안전 계약과 개발자의 지속 가능한 생산성에 맞는 결정이다.
 
 ## 최종 권고
 
-1. 새 Kyro 구현은 Java로 시작한다.
+1. 새 Clue 구현은 Java로 시작한다.
 2. 기존 Python 코드를 그대로 번역하지 않고 behavior fixture를 이전한다.
-3. 첫 vertical slice는 `kyro diagnose`와 ImagePullBackOff 하나다.
+3. 첫 vertical slice는 `clue diagnose`와 ImagePullBackOff 하나다.
 4. CLI는 Native Image로 만들어 Homebrew 설치 경험을 먼저 검증한다.
 5. Hub는 JVM container, Agent는 측정 후 JVM/native를 선택한다.
 6. interface는 port와 plugin 경계에만 사용하고 Java식 과설계를 피한다.
 7. native Kubernetes client가 release 기준을 충족하지 못할 때만 Go CLI 분리를 다시 판단한다.
 
-Kyro는 Java로 구현한다. 접근 제어, interface 계약, Incident 상태, 보안 경계, Analyzer SDK와 장기 실행 process를 compile 시점에 검사한다.
+Clue는 Java로 구현한다. 접근 제어, interface 계약, Incident 상태, 보안 경계, Analyzer SDK와 장기 실행 process를 compile 시점에 검사한다.

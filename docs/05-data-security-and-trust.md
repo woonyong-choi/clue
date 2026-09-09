@@ -2,7 +2,7 @@
 
 ## 공개해야 하는 운영 계약
 
-Kyro는 설치 전에 다음 내용을 문서와 CLI에서 확인할 수 있어야 한다.
+Clue는 설치 전에 다음 내용을 문서와 CLI에서 확인할 수 있어야 한다.
 
 1. Agent가 읽는 Kubernetes 리소스 목록
 2. Secret 값을 읽지 않는 정책
@@ -84,8 +84,8 @@ Secret 존재 여부가 필요하더라도 Secret 조회 권한을 기본 부여
 
 ## 신뢰 확보 방법
 
-- 설치 전 `kyro permissions explain`으로 RBAC를 사람이 읽을 수 있게 출력
-- `kyro install --dry-run`으로 생성할 리소스와 외부 endpoint 표시
+- 설치 전 `clue permissions explain`으로 RBAC를 사람이 읽을 수 있게 출력
+- `clue install --dry-run`으로 생성할 리소스와 외부 endpoint 표시
 - reproducible release, SHA-256, 서명과 SBOM 제공
 - release artifact와 container image를 같은 source revision에 연결
 - telemetry 기본 비활성화 또는 명시적 opt-in

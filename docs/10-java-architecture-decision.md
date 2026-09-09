@@ -4,7 +4,7 @@
 
 ## 결정
 
-Kyro의 새 구현은 Java를 주 언어로 사용한다. 현재 기준은 Java 25 LTS이며 preview feature는 사용하지 않는다.
+Clue의 새 구현은 Java를 주 언어로 사용한다. 현재 기준은 Java 25 LTS이며 preview feature는 사용하지 않는다.
 
 - CLI: Java + Picocli + GraalVM Native Image
 - Hub: Java 기반 modular monolith
@@ -23,7 +23,7 @@ Java 25는 2025년 9월 GA에 도달했고 다수 vendor가 LTS로 제공한다.
 
 ## Java를 선택해도 좋은 이유
 
-내가 Python에서 불편했던 부분은 접근 제어, interface 계약과 타입 강제다. Kyro에는 보안 경계, 권한, protocol, rule contract와 상태 전이가 많다. 이 경계는 Java compiler로 검사한다.
+내가 Python에서 불편했던 부분은 접근 제어, interface 계약과 타입 강제다. Clue에는 보안 경계, 권한, protocol, rule contract와 상태 전이가 많다. 이 경계는 Java compiler로 검사한다.
 
 - `public`, package-private, `protected`, `private`로 API 표면을 명확하게 제한
 - interface와 sealed interface로 허용된 구현과 상태를 표현
@@ -58,7 +58,7 @@ Python도 객체지향과 Protocol/ABC를 지원하지만 접근 제한은 관�
 | AI 라이브러리 | 매우 좋음 | 충분함 | 보통 |
 | 개발자 선호와 경험 | 현재 불편 | C#/C++ 경험과 가까움 | 새 스타일 학습 필요 |
 
-Kyro의 AI는 핵심 추론 엔진이 아니라 adapter이므로 Python 생태계의 이점이 결정적이지 않다. 반대로 Evidence, policy, remediation과 lifecycle을 안전하게 모델링하는 것이 핵심이므로 Java 선택이 합리적이다.
+Clue의 AI는 핵심 추론 엔진이 아니라 adapter이므로 Python 생태계의 이점이 결정적이지 않다. 반대로 Evidence, policy, remediation과 lifecycle을 안전하게 모델링하는 것이 핵심이므로 Java 선택이 합리적이다.
 
 ## 구현 규칙
 
@@ -132,4 +132,4 @@ framework 선택은 첫 vertical slice에서 JVM image와 native image를 모두
 
 ## 결론
 
-Java 전환에 찬성한다. 다만 기존 Python 시스템을 Java 문법으로 그대로 복사하지 않는다. Kyro의 첫 Java 구현은 `kyro diagnose` vertical slice로 시작하고, 언어 선택이 설치 경험을 해치지 않는다는 것을 Native Image와 Homebrew로 먼저 증명한다.
+Java 전환에 찬성한다. 다만 기존 Python 시스템을 Java 문법으로 그대로 복사하지 않는다. Clue의 첫 Java 구현은 `clue diagnose` vertical slice로 시작하고, 언어 선택이 설치 경험을 해치지 않는다는 것을 Native Image와 Homebrew로 먼저 증명한다.

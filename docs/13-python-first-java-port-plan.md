@@ -4,7 +4,7 @@
 
 ## 결정
 
-- `k8s-ops`를 먼저 정리한다.
+- `k8s-clue-python-reference`를 먼저 정리한다.
 - Python Handoff Pack이 완성되기 전 Java application code를 작성하지 않는다.
 - Java는 Python의 행동 계약만 포팅한다.
 - Python의 runtime 구조는 포팅하지 않는다.
@@ -17,7 +17,7 @@
 
 ## 저장소 역할
 
-### k8s-ops
+### k8s-clue-python-reference
 
 ```text
 Python 행동 참조 구현
@@ -28,7 +28,7 @@ Expected result 생성
 Handoff Pack 발행
 ```
 
-### Kyro
+### Clue
 
 ```text
 Java 제품 구현
@@ -46,7 +46,7 @@ AI adapter
 
 | 항목 | 기준 |
 |---|---|
-| Python 작업 순서 | `k8s-ops/docs/PYTHON-FIRST-PLAN.md` |
+| Python 작업 순서 | `k8s-clue-python-reference/docs/PYTHON-FIRST-PLAN.md` |
 | Java 작업 순서 | 이 문서 |
 | 제품 범위 | `docs/01-product-definition.md` |
 | CLI | `docs/02-user-experience-and-commands.md` |
@@ -155,7 +155,7 @@ compatibility/
 수신 명령 목표:
 
 ```bash
-./mvnw -pl kyro-compatibility verify
+./mvnw -pl clue-compatibility verify
 ```
 
 ## 포팅 대상
@@ -239,29 +239,29 @@ compatibility/
 ## Java project 구조
 
 ```text
-Kyro/
+clue/
 ├── pom.xml
 ├── mvnw
 ├── .mvn/
-├── kyro-bom/
-├── kyro-domain/
-├── kyro-protocol/
-├── kyro-analyzer-api/
-├── kyro-analyzers-core/
-├── kyro-application/
-├── kyro-kubernetes/
-├── kyro-scm-api/
-├── kyro-scm-github/
-├── kyro-persistence-api/
-├── kyro-persistence-postgres/
-├── kyro-cli/
-├── kyro-agent/
-├── kyro-hub/
-├── kyro-ai-api/
-├── kyro-ai-local/
-├── kyro-mcp/
-├── kyro-console/
-├── kyro-compatibility/
+├── clue-bom/
+├── clue-domain/
+├── clue-protocol/
+├── clue-analyzer-api/
+├── clue-analyzers-core/
+├── clue-application/
+├── clue-kubernetes/
+├── clue-scm-api/
+├── clue-scm-github/
+├── clue-persistence-api/
+├── clue-persistence-postgres/
+├── clue-cli/
+├── clue-agent/
+├── clue-hub/
+├── clue-ai-api/
+├── clue-ai-local/
+├── clue-mcp/
+├── clue-console/
+├── clue-compatibility/
 ├── deploy/
 ├── compatibility/
 └── docs/
@@ -270,27 +270,27 @@ Kyro/
 초기 생성 모듈:
 
 ```text
-kyro-bom
-kyro-domain
-kyro-protocol
-kyro-analyzer-api
-kyro-analyzers-core
-kyro-application
-kyro-kubernetes
-kyro-cli
-kyro-compatibility
+clue-bom
+clue-domain
+clue-protocol
+clue-analyzer-api
+clue-analyzers-core
+clue-application
+clue-kubernetes
+clue-cli
+clue-compatibility
 ```
 
 나중에 생성:
 
 ```text
-kyro-agent
-kyro-hub
-kyro-persistence-*
-kyro-scm-*
-kyro-ai-*
-kyro-mcp
-kyro-console
+clue-agent
+clue-hub
+clue-persistence-*
+clue-scm-*
+clue-ai-*
+clue-mcp
+clue-console
 ```
 
 ## package 규칙
@@ -298,7 +298,7 @@ kyro-console
 기본 package:
 
 ```text
-io.github.woonyongkr.kyro
+io.github.woonyongkr.k8sclue
 ```
 
 소유 domain을 확보하면 새 ADR 없이 즉시 바꾸지 않는다. public artifact를 발행하기 전에 group ID를 최종 확정한다.
@@ -306,14 +306,14 @@ io.github.woonyongkr.kyro
 package 예시:
 
 ```text
-io.github.woonyongkr.kyro.domain.evidence
-io.github.woonyongkr.kyro.domain.analysis
-io.github.woonyongkr.kyro.domain.incident
-io.github.woonyongkr.kyro.domain.remediation
-io.github.woonyongkr.kyro.domain.recovery
-io.github.woonyongkr.kyro.application
-io.github.woonyongkr.kyro.adapter.kubernetes
-io.github.woonyongkr.kyro.adapter.github
+io.github.woonyongkr.k8sclue.domain.evidence
+io.github.woonyongkr.k8sclue.domain.analysis
+io.github.woonyongkr.k8sclue.domain.incident
+io.github.woonyongkr.k8sclue.domain.remediation
+io.github.woonyongkr.k8sclue.domain.recovery
+io.github.woonyongkr.k8sclue.application
+io.github.woonyongkr.k8sclue.adapter.kubernetes
+io.github.woonyongkr.k8sclue.adapter.github
 ```
 
 ## module dependency 규칙
@@ -449,7 +449,7 @@ release: all architecture artifact
 - [ ] dependency lock 또는 BOM 확정
 - [ ] SBOM 생성
 - [ ] license report 생성
-- [ ] `kyro version` JVM 실행
+- [ ] `clue version` JVM 실행
 - [ ] native hello artifact 생성
 
 ## J1. Protocol과 domain
@@ -489,14 +489,14 @@ release: all architecture artifact
 ### command
 
 ```bash
-kyro version
-kyro diagnose
-kyro diagnose --context dev
-kyro diagnose --namespace payments
-kyro diagnose deployment/card-api
-kyro diagnose --all-contexts
-kyro diagnose --output json
-kyro rules list
+clue version
+clue diagnose
+clue diagnose --context dev
+clue diagnose --namespace payments
+clue diagnose deployment/card-api
+clue diagnose --all-contexts
+clue diagnose --output json
+clue rules list
 ```
 
 ### 기술
@@ -562,10 +562,10 @@ full diagnose latency
 ### 모듈
 
 ```text
-kyro-scm-api
-kyro-scm-github
-kyro-domain/remediation
-kyro-domain/recovery
+clue-scm-api
+clue-scm-github
+clue-domain/remediation
+clue-domain/recovery
 ```
 
 ### Remediation
@@ -719,14 +719,14 @@ api
 ### CLI
 
 ```bash
-kyro install --dry-run
-kyro install
-kyro status
-kyro login
-kyro upgrade --plan
-kyro upgrade
-kyro uninstall --keep-data
-kyro uninstall --purge
+clue install --dry-run
+clue install
+clue status
+clue login
+clue upgrade --plan
+clue upgrade
+clue uninstall --keep-data
+clue uninstall --purge
 ```
 
 ### 설치 구성
@@ -970,8 +970,8 @@ python-handoff-v1.0.0
 
 ```bash
 ./mvnw verify
-./mvnw -pl kyro-compatibility verify
-./mvnw -Pnative -pl kyro-cli verify
+./mvnw -pl clue-compatibility verify
+./mvnw -Pnative -pl clue-cli verify
 ./mvnw -Pintegration verify
 ```
 
@@ -999,7 +999,7 @@ SBOM/signature
 - [ ] Native CLI release
 - [ ] Homebrew 설치
 
-### 설치형 Kyro 완료
+### 설치형 Clue 완료
 
 - [ ] J4-J6 완료
 - [ ] Agent
@@ -1007,7 +1007,7 @@ SBOM/signature
 - [ ] PostgreSQL
 - [ ] install/status/uninstall
 
-### 멀티클러스터 Kyro 완료
+### 멀티클러스터 Clue 완료
 
 - [ ] J7 완료
 - [ ] watch
@@ -1023,7 +1023,7 @@ SBOM/signature
 - [ ] signed release
 - [ ] 운영 검증
 
-`k8s-ops` archive 검토 시점:
+`k8s-clue-python-reference` archive 검토 시점:
 
 ```text
 J3 parity release 완료 후

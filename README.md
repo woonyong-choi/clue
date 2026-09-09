@@ -1,7 +1,7 @@
-# Kyro
+# Clue
 
-Kyro는 Kubernetes 장애의 증거를 모으고, 원인을 설명하고, 안전한 수정안을 제안한 뒤 회복 여부까지 확인하는 오픈소스 Incident 진단 도구다.
+Clue는 Kubernetes 장애의 증거를 모으고, 원인을 설명하고, 안전한 수정안을 제안한 뒤 회복 여부까지 확인하는 오픈소스 Incident 진단 도구다.
 
-현재 이 디렉터리는 새 구현을 시작하기 위한 설계 문서 저장소다. 기존 학습 프로젝트인 `k8s-ops`는 유지하며, 검증된 계약과 테스트를 Kyro로 단계적으로 옮긴다.
+현재 이 디렉터리는 새 구현을 시작하기 위한 설계 문서 저장소다. 기존 학습 프로젝트인 [`k8s-clue-python-reference`](https://github.com/woonyong-kr/k8s-clue-python-reference)는 유지하며, 검증된 계약과 테스트를 Clue로 단계적으로 옮긴다.
 
 전체 문서 목차는 [`docs/README.md`](docs/README.md)에서 확인한다.

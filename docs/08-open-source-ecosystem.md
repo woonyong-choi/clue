@@ -2,7 +2,7 @@
 
 ## 생태계의 중심
 
-Kyro의 확장 단위는 무제한 코드를 Hub 안에서 실행하는 plugin이 아니라, 버전과 권한이 명시된 Analyzer와 Rule Pack이다.
+Clue의 확장 단위는 무제한 코드를 Hub 안에서 실행하는 plugin이 아니라, 버전과 권한이 명시된 Analyzer와 Rule Pack이다.
 
 Rule Pack에 포함할 수 있는 것:
 
@@ -22,7 +22,7 @@ Rule Pack에 포함할 수 있는 것:
 2. Java Analyzer SPI
 3. 외부 프로세스 또는 WASM sandbox는 생태계가 성장한 뒤 검토
 
-Rule Pack 설치 전 Kyro가 보여줄 내용:
+Rule Pack 설치 전 Clue가 보여줄 내용:
 
 - publisher와 source repository
 - version과 checksum/signature
@@ -32,16 +32,16 @@ Rule Pack 설치 전 Kyro가 보여줄 내용:
 - test fixture 통과 결과
 
 ```bash
-kyro rule search image-pull
-kyro rule inspect community/eks-pack
-kyro rule install community/eks-pack --dry-run
-kyro rule test ./my-pack
+clue rule search image-pull
+clue rule inspect community/eks-pack
+clue rule install community/eks-pack --dry-run
+clue rule test ./my-pack
 ```
 
 ## 개발자가 기여하기 쉬운 구조
 
 - JSON Schema와 예제 제공
-- `kyro rule init` scaffolding
+- `clue rule init` scaffolding
 - 실제 cluster 없이 fixture로 검증 가능한 test harness
 - 잘못된 rule이 Hub 전체를 중단하지 않도록 timeout과 resource limit
 - Analyzer compatibility matrix
@@ -52,11 +52,11 @@ kyro rule test ./my-pack
 
 Rule Pack 등급:
 
-- `official`: Kyro maintainers가 source와 fixture를 검토
+- `official`: Clue maintainers가 source와 fixture를 검토
 - `verified`: 서명과 자동 호환성 테스트 통과
 - `community`: 누구나 게시 가능, 권한과 위험을 명확히 표시
 
-인기만으로 추천하지 않는다. 최근 유지보수, supported Kyro/Kubernetes version, false-positive report와 필요한 권한을 함께 보여준다.
+인기만으로 추천하지 않는다. 최근 유지보수, supported Clue/Kubernetes version, false-positive report와 필요한 권한을 함께 보여준다.
 
 ## 오픈소스 공개 시 증명해야 할 가치
 
@@ -81,6 +81,6 @@ Rule Pack 등급:
 
 제품 설명은 다음 문장을 일관되게 사용한다.
 
-> Kyro collects Kubernetes incident evidence, explains the cause, proposes a safe fix, and verifies recovery.
+> Clue collects Kubernetes incident evidence, explains the cause, proposes a safe fix, and verifies recovery.
 
-`AI가 Kubernetes를 고친다`고 홍보하지 않는다. AI는 선택적인 설명 계층이고 Kyro의 신뢰는 Evidence, rule, policy와 verification에서 나온다.
+`AI가 Kubernetes를 고친다`고 홍보하지 않는다. AI는 선택적인 설명 계층이고 Clue의 신뢰는 Evidence, rule, policy와 verification에서 나온다.

@@ -21,7 +21,7 @@ Evidence Bundle은 특정 시점과 대상에 대한 불변 입력이다.
 Analyzer는 Evidence를 입력받아 Finding을 반환한다.
 
 ```text
-Analyzer ID: KYRO-IMAGE-001
+Analyzer ID: CLUE-IMAGE-001
 Version: 1.0.0
 Input: Pod status + Kubernetes Event + owner Deployment
 Output: cause, severity, confidence, evidence refs, suggested checks
@@ -88,7 +88,7 @@ Remediation Plan은 실행 명령이 아니라 검토 가능한 변경 계약이
 
 ## Recovery Check
 
-변경 성공은 PR 생성이나 배포 완료가 아니다. Kyro는 배포 이후 새 Evidence window에서 다음을 확인한다.
+변경 성공은 PR 생성이나 배포 완료가 아니다. Clue는 배포 이후 새 Evidence window에서 다음을 확인한다.
 
 - 같은 resource identity인가
 - 장애 reason이 사라졌는가

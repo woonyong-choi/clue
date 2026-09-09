@@ -2,21 +2,21 @@
 
 ## 세 가지 사용 수준
 
-### 1. 일회성 진단: `kyro diagnose`
+### 1. 일회성 진단: `clue diagnose`
 
 사용자 PC의 CLI가 kubeconfig로 Kubernetes API를 읽고 결과를 출력한 뒤 종료한다.
 
 ```bash
-kyro diagnose
-kyro diagnose --context dev-cluster
-kyro diagnose --namespace payments
-kyro diagnose deployment/card-api
-kyro diagnose --all-contexts
+clue diagnose
+clue diagnose --context dev-cluster
+clue diagnose --namespace payments
+clue diagnose deployment/card-api
+clue diagnose --all-contexts
 ```
 
 필요한 것:
 
-- Kyro CLI
+- Clue CLI
 - kubeconfig와 조회 권한
 - 접근 가능한 Kubernetes API
 
@@ -46,16 +46,16 @@ Suggested action
 - Verify image tag 1.8.5 in the registry
 - Proposed GitOps diff: 1.8.5 -> 1.8.4
 
-Kyro did not modify the cluster.
+Clue did not modify the cluster.
 ```
 
-### 2. 로컬 지속 감시: `kyro watch`
+### 2. 로컬 지속 감시: `clue watch`
 
 사용자 PC에서 foreground 프로세스로 실행한다. 종료하면 감시도 끝난다.
 
 ```bash
-kyro watch --context dev-cluster
-kyro watch --namespace payments --notify desktop
+clue watch --context dev-cluster
+clue watch --namespace payments --notify desktop
 ```
 
 메모리를 무한히 사용하지 않는다. 최근 상태는 크기와 기간이 제한된 버퍼로 유지하고, 맥락과 재시작 복구가 필요하면 로컬 SQLite에 bounded history를 저장한다.
@@ -69,16 +69,16 @@ kyro watch --namespace payments --notify desktop
 
 `watch`는 개인 개발 환경과 단기 디버깅을 위한 기능이다. 24시간 팀 운영, 여러 사용자, 장기 이력에는 Hub와 Agent를 사용한다.
 
-### 3. 지속 운영과 멀티클러스터: `kyro fleet`
+### 3. 지속 운영과 멀티클러스터: `clue fleet`
 
 Hub, PostgreSQL, Console을 설치하고 각 클러스터의 Agent가 Hub로 outbound 연결한다.
 
 ```bash
-kyro install
-kyro fleet join --context staging
-kyro fleet join --context production
-kyro fleet status
-kyro incident list --fleet default
+clue install
+clue fleet join --context staging
+clue fleet join --context production
+clue fleet status
+clue incident list --fleet default
 ```
 
 이 수준에서 제공하는 기능:
@@ -102,7 +102,7 @@ kyro incident list --fleet default
 
 ## 로컬 연결 정보
 
-CLI는 `~/.config/kyro/config.yaml`에 다음 정보만 저장한다.
+CLI는 `~/.config/clue/config.yaml`에 다음 정보만 저장한다.
 
 - 사용자가 선택한 kubeconfig context
 - Hub endpoint와 인증 profile 이름

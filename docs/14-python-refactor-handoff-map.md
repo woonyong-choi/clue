@@ -1,10 +1,10 @@
-# k8s-ops 상세 정리와 Java 인수 연결
+# k8s-clue-python-reference 상세 정리와 Java 인수 연결
 
 ## 기준 문서
 
-Python의 실제 작업과 완료 판정은 `k8s-ops/docs/PYTHON-REFACTOR-TASKS.md`를 기준으로 한다.
+Python의 실제 작업과 완료 판정은 `k8s-clue-python-reference/docs/PYTHON-REFACTOR-TASKS.md`를 기준으로 한다.
 
-Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정리 과정에서 확정한 Schema, fixture, expected result, reason code와 안전 계약을 Java에서 다시 만족시키는 작업이다.
+Clue Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정리 과정에서 확정한 Schema, fixture, expected result, reason code와 안전 계약을 Java에서 다시 만족시키는 작업이다.
 
 ## 인수 금지 조건
 
@@ -21,14 +21,14 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 | Python 작업 | Python 산출물 | Java 대상 | Java 시작 조건 |
 |---|---|---|---|
 | `BAS-001`~`BAS-014` | 기존 동작·test·route·service·rule 기준선 | 포팅 비교 자료 | 기준선 누락 0개 |
-| `ARC-001`~`ARC-012` | port, canonical JSON, reason code, field mapping | `kyro-domain`, `kyro-application` | framework 비의존 계약 확정 |
-| `CLI-001`~`CLI-016` | 명령·option·exit code·출력 snapshot | `kyro-cli` | command contract 고정 |
-| `K8S-001`~`K8S-030` | kubeconfig adapter 계약·raw fixture·RBAC | `kyro-kubernetes` | Secret/write 요청 test 통과 |
-| `EVD-001`~`EVD-020` | Evidence Schema·normalizer·sanitizer | `kyro-domain:evidence` | canonical artifact 재현 |
-| `ANA-001`~`ANA-030` | Rule Pack·Finding Schema·golden corpus | `kyro-analyzer` | enabled rule fixture 완결 |
-| `INC-001`~`INC-012` | Incident Schema·renderer expected result | `kyro-domain:incident`, `kyro-cli` | DB 없이 incident 생성 |
-| `REM-001`~`REM-030` | Remediation Schema·authority·patch·Draft PR 계약 | `kyro-remediation`, `kyro-scm-github` | preview/dry-run/Draft 강제 |
-| `REC-001`~`REC-018` | Recovery Schema·time/identity fixture | `kyro-recovery` | baseline과 새 window만으로 재현 |
+| `ARC-001`~`ARC-012` | port, canonical JSON, reason code, field mapping | `clue-domain`, `clue-application` | framework 비의존 계약 확정 |
+| `CLI-001`~`CLI-016` | 명령·option·exit code·출력 snapshot | `clue-cli` | command contract 고정 |
+| `K8S-001`~`K8S-030` | kubeconfig adapter 계약·raw fixture·RBAC | `clue-kubernetes` | Secret/write 요청 test 통과 |
+| `EVD-001`~`EVD-020` | Evidence Schema·normalizer·sanitizer | `clue-domain:evidence` | canonical artifact 재현 |
+| `ANA-001`~`ANA-030` | Rule Pack·Finding Schema·golden corpus | `clue-analyzer` | enabled rule fixture 완결 |
+| `INC-001`~`INC-012` | Incident Schema·renderer expected result | `clue-domain:incident`, `clue-cli` | DB 없이 incident 생성 |
+| `REM-001`~`REM-030` | Remediation Schema·authority·patch·Draft PR 계약 | `clue-remediation`, `clue-scm-github` | preview/dry-run/Draft 강제 |
+| `REC-001`~`REC-018` | Recovery Schema·time/identity fixture | `clue-recovery` | baseline과 새 window만으로 재현 |
 | `DEL-001`~`DEL-026` | 비제품 runtime 제거 결과 | Java로 이식하지 않을 목록 | legacy import 0개 |
 | `TST-001`~`TST-025` | unit/contract/golden/E2E 분류 | Java test suite | test 주장별 대응 ID 존재 |
 | `CI-001`~`CI-014` | 재현 명령과 release gate | Gradle/CI gate | clean clone 재현 |
@@ -36,7 +36,7 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 
 ## Java module별 입력
 
-### `kyro-domain`
+### `clue-domain`
 
 인수:
 
@@ -63,7 +63,7 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 - domain package에서 Spring, Kubernetes, PostgreSQL import 0
 - clock과 ID 생성기가 interface로 주입됨
 
-### `kyro-kubernetes`
+### `clue-kubernetes`
 
 인수:
 
@@ -80,7 +80,7 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 - 같은 fixture에서 같은 canonical Evidence 생성
 - API recorder에서 금지 요청 0개
 
-### `kyro-analyzer`
+### `clue-analyzer`
 
 인수:
 
@@ -96,7 +96,7 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 - 규칙 등록 순서가 달라도 결과 동일
 - 근거 부족 시 확정 원인 생성 0개
 
-### `kyro-remediation`
+### `clue-remediation`
 
 인수:
 
@@ -114,7 +114,7 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 - Kubernetes mutating client method 없음
 - GitHub merge method 없음
 
-### `kyro-recovery`
+### `clue-recovery`
 
 인수:
 
@@ -131,7 +131,7 @@ Kyro Java 구현은 Python 코드를 옮기는 작업이 아니다. Python 정�
 
 ## Java 구현 시작 gate
 
-- [ ] `k8s-ops`의 상세 계획 최종 완료 기준이 모두 통과했다.
+- [ ] `k8s-clue-python-reference`의 상세 계획 최종 완료 기준이 모두 통과했다.
 - [ ] `make handoff`와 `make handoff-verify`가 clean clone에서 통과한다.
 - [ ] `python-handoff-v1` manifest와 checksum이 고정됐다.
 - [ ] Java module별 인수 파일 목록이 manifest에 있다.
